@@ -1,3 +1,5 @@
+# 국가 사이트 접속 알림
+
 import sys
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox
 
