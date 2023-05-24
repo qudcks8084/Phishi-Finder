@@ -1,3 +1,5 @@
+# 프로젝트 메인 코드
+
 from scapy.all import *
 import socket
 import ipaddress
@@ -20,9 +22,6 @@ MyInnerIp = socket.getsockname()[0]
 print(" 내부 IP : ", MyInnerIp)
 
 protocols = {1: 'ICMP', 6: 'TCP', 17: 'UDP'}
-
-# wdns = open("DNS.csv",'a',newline='') # 파일입출력 버전 코드
-# prev = None
 
 check_list = []
 dns_list = []
