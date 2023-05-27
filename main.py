@@ -85,17 +85,27 @@ def check_sm_kr(url):
             if similar2 > max :
                 max = similar2
     elif(A_url.count('.') == 4) :
-        for index, row in dm.iterrows():
-            check_url = row['domain']
-            spurl1 = check_url.split('.')
-            spurl2 = A_url.split('.')
-            similar0 = similar(check_url,A_url)
-            if similar0 > max :
-                max = similar0
-            similar2 = (similar(spurl1[1],spurl2[1]) + similar(spurl1[2],spurl2[2])+ similar(spurl1[2],spurl2[2]))/3
-            if similar2 > max :
-                max = similar2
+        spurl2 = A_url.split('.')
+        if spurl2[3] == "kr" :
+                for index, row in dm.iterrows():
+                    check_url = row['domain']
+                    spurl1 = check_url.split('.')
+                    similar0 = similar(check_url,A_url)
+                    if similar0 > max :
+                        max = similar0
+                    similar2 = (similar(spurl1[0],spurl2[0]) + similar(spurl1[1],spurl2[1])+ similar(spurl1[2],spurl2[2]))/3
+                    if similar2 > max :
+                        max = similar2
+        else :
+                for index, row in dm.iterrows():
+                    check_url = row['domain']
+                    spurl1 = check_url.split('.')
+                    for i in range (0,3):
+                        similar0 = similar(spurl1[1],spurl2[i])
+                        if similar0 > max :
+                            max = similar0
 
+    
     if max > 0.8:
         return (1, max)
     else :
