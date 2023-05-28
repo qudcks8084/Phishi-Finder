@@ -36,7 +36,7 @@ def dns_thread(packet):
             if answer.type == 1:  # IPv4 주소 타입인 경우
                 ip_address = answer.rdata
                 a, b = check_sm_kr(url)
-                print("< DNS > [ %s | %s ] " %(ip_address, dns_query))
+                print("< DNS > [ %s | %s ] check : %s - %s" %(ip_address, dns_query,a,b))
 
                 if ip_address not in dns_list:
                     dns_list.append([ip_address, a])
