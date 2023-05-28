@@ -126,7 +126,7 @@ def sleep_thread(dst_ip):
     time.sleep(10)
     tcp_list.remove(dst_ip)
 
-def showPacket(packet):
+def show_packet(packet):
     proto = packet[0][1].proto
 
     if proto == 17:         ## dns
@@ -141,18 +141,7 @@ def showPacket(packet):
 
 
 def sniffing(filter):
-    sniff(filter=filter, prn=showPacket, count=0, store=0)
-
-
-def check(URL):
-    with open("DNSDanger.csv",'r',encoding="UTF-8") as read:
-        rd = csv.reader(read)
-        for tem in rd:
-            if tem[0] == URL:
-                print(tem[0])
-                print("Danger Website")
-
-    return 0
+    sniff(filter=filter, prn=show_packet, count=0, store=0)
 
 
 if __name__ == '__main__':
