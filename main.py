@@ -21,9 +21,6 @@ socket.connect(("pwnbit.kr", 443))
 MyInnerIp = socket.getsockname()[0]
 print(" 내부 IP : ", MyInnerIp)
 
-protocols = {1: 'ICMP', 6: 'TCP', 17: 'UDP'}
-
-check_list = []
 dns_list = []
 tcp_list = []
 
@@ -35,11 +32,11 @@ def dns_thread(packet):
         for answer in packet[DNSRR]:
             if answer.type == 1:  # IPv4 주소 타입인 경우
                 ip_address = answer.rdata
-                a, b = check_sm_kr(url)
-                print("< DNS > [ %s | %s ] check : %s - %s" %(ip_address, dns_query,a,b))
+                danger, similarity = check_sm_kr(url)
+                print("< DNS > [ %s | %s ] check : %s - %s" %(ip_address, dns_query, danger, similarity))
 
                 if ip_address not in dns_list:
-                    dns_list.append([ip_address, a])
+                    dns_list.append([ip_address, danger])
 
 def tcp_thread(packet):
     if 'S' in packet['TCP'].flags:
