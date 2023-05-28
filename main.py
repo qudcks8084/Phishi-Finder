@@ -83,7 +83,8 @@ def check_sm_kr(url):
                 max = similar1
     # url이 3개의 점으로 구분되어 있는 경우 (ex - www.naver.com.)
     # dm 데이터프레임의 각 도메인과 입력된 URL 전체를 비교하여 유사도(similar0)를 계산합니다. 
-    # 또한, 도메인의 첫 번째 부분과 URL의 첫 번째 부분, 두 번째 부분과 두 번째 부분 각각을 비교하여 유사도(similar1)를 계산하고, 두 유사도의 평균값(similar2)을 계산합니다.
+    # 또한, 도메인의 첫 번째 부분과 URL의 첫 번째 부분, 두 번째 부분과 두 번째 부분 각각을 비교하여 유사도(similar1)를 계산하고, 
+    # 두 유사도의 평균값(similar2)을 계산합니다.
     # 최대 유사도인 경우 max 값을 업데이트합니다.
     elif(A_url.count('.') == 3) :
         for index, row in dm.iterrows():
@@ -101,16 +102,12 @@ def check_sm_kr(url):
                 max = similar2
     # url이 4개의 점으로 구분되어 있는 경우(www.gov.go.kr)
     # 입력된 URL을 점으로 분리한 뒤, 마지막 부분이 "kr"인 경우와 아닌 경우로 분기합니다. 
-    # <"kr"인 경우 >
-    # dm 데이터프레임의 각 도메인과 입력된 URL 전체를 비교하여 유사도(similar0)를 계산하고, 
-    # 도메인의 첫 번째, 두 번째, 세 번째 부분과 URL의 첫 번째, 두 번째, 세 번째 부분 각각을 비교하여 유사도(similar2)를 계산합니다. 
-    # 최대 유사도인 경우 max 값을 업데이트합니다. 
-    # <"kr"이 아닌 경우>
-    # dm 데이터프레임의 각 도메인과 URL의 첫 번째, 두 번째, 세 번째 부분 각각을 비교하여 유사도(similar0)를 계산하고, 
-    # 최대 유사도인 경우 max 값을 업데이트합니다.
     elif(A_url.count('.') == 4) :
         spurl2 = A_url.split('.')
         # 도메인의 마지막 부분이 kr인 경우
+        # dm 데이터프레임의 각 도메인과 입력된 URL 전체를 비교하여 유사도(similar0)를 계산하고, 
+        # 도메인의 첫 번째, 두 번째, 세 번째 부분과 URL의 첫 번째, 두 번째, 세 번째 부분 각각을 비교하여 유사도(similar2)를 계산합니다. 
+        # 최대 유사도인 경우 max 값을 업데이트합니다. 
         if spurl2[3] == "kr" :
                 for index, row in dm.iterrows():
                     check_url = row['domain']
@@ -121,7 +118,10 @@ def check_sm_kr(url):
                     similar2 = (similar(spurl1[0],spurl2[0]) + similar(spurl1[1],spurl2[1])+ similar(spurl1[2],spurl2[2]))/3
                     if similar2 > max :
                         max = similar2
+        
         # kr 이 아닌경우
+        # dm 데이터프레임의 각 도메인과 URL의 첫 번째, 두 번째, 세 번째 부분 각각을 비교하여 유사도(similar0)를 계산하고, 
+        # 최대 유사도인 경우 max 값을 업데이트합니다.
         else :
                 for index, row in dm.iterrows():
                     check_url = row['domain']
